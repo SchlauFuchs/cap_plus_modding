@@ -1,0 +1,277 @@
+{
+  "$schema": "http://json-schema.org/schema#",
+  "id": "http://hackemesser.de/schemas/capitalism_plus/modding-schema.json",
+  "type": "object",
+  "properties": {
+    "title":{"type":"string"},
+    "description":{"type":"string"},
+    "author":{"type":"string"},
+    "dependencies": {
+      "game": {
+        "type": "object",
+        "properties": {
+          "minimum-version": {
+            "type": "string",
+          },
+          "maximum-version": {
+            "type": "string",
+          }
+        },
+        "dlc": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "description": "name of the DLC",
+                "type": "string"
+              },
+              "minimum-version": {
+                "type": "string",
+              },
+              "maximum-version": {
+                "type": "string",
+              }
+            },
+            "required": ["id"]
+          }
+        },
+        "mod": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "description": "identifier of the mod",
+                "type": "string"
+              },
+              "minimum-version": {
+                "type": "string",
+              },
+              "maximum-version": {
+                "type": "string",
+              }
+            },
+            "required": ["id"]
+          }
+        }
+      }
+    },
+    "products": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 8
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 21
+          },
+          "overwrite": {
+            "type": "boolean",
+            "description": "If this property is not present or not true, if the resource is defined before in the dependency chain, the modification cannot be applied and the game will not start."
+          },
+          "disabled": {
+            "type": "boolean",
+            "description": "If this is true, the resource will not be available from the list of resources in the game. This is useful to disable resources defined in the main game, DLC or mods earlier in the chain."
+          },
+          "product_class_id": {
+            "type": "string",
+            "maxLength": 8
+          },
+          "recipe": {
+            "type": "object",
+            "properties": {
+              "source":{"type":"string", "enum":["crops","farming", "mining", "drilling", "logging", "manufacturing"] },
+              "contents": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          },
+          "output_amount": {
+            "type": "number",
+            "minimum": 0
+          },
+          "output_unit": {
+            "type": "string",
+            "maxLength": 6
+          },
+          "output_duration": {
+            "type": "number",
+            "minimum": 0
+          },
+          "standard_price": {
+            "type": "number",
+            "minimum": 0.3,
+            "maximum": 20000
+          },
+          "rd_premium": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1000
+          },
+          "freight": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "demand": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 999
+          },
+          "necessity": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9
+          },
+          "customer_priorities": {
+            "type": "object",
+            "properties": {
+              "price": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 99
+              },
+              "quality": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 99
+              },
+              "brand": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 99
+              },
+            },
+            "required": [
+              "price", "quality", "brand"
+            ]
+          },
+          "invention_year": {
+            "type": "integer",
+            "minimum": 1990,
+            "maximum": 2999
+          },
+          "required_invention_years": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 999
+          },
+          "semiproduct_importance": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9
+          },
+          "importable": {
+            "type": "boolean"
+          },
+          "required_rd": {
+            "type": "array",
+            "maxLength": 2,
+            "items": {
+              "type": "string",
+              "maxLength": 8
+            }
+          },
+          "phased_out_by_rd": {
+            "type": "string",
+            "maxLength": 8
+          },
+          "phased_out_years": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 99
+          },
+          "phased_out_remains": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 99
+          },
+          "obsolete": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 99
+          },
+        }
+      }
+    },
+    "buildings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "description": "list of new or disabled retailing building types",
+        "properties": {
+          "id": {
+            "type": "string",
+            "maxLength": 8
+          },
+          "type": {
+            "type": "string",
+            "maxLength": 8
+          },
+          "overwrite": {
+            "type": "boolean",
+            "description": "If this property is not present or not true, if the building is defined before in the dependency chain, the modification cannot be applied and the game will not start."
+          },
+          "disabled": {
+            "type": "boolean",
+            "description": "If this is true, the building will not be available from the list of resources in the game. This is useful to disable buildings defined in the main game, DLC or mods earlier in the chain."
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 45
+          },
+          "width": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 4
+          },
+          "height": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 4
+          },
+
+          "setup_cost": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9999999
+          },
+          "monthly_cost": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 999999
+          },
+          "space": {
+            "description": "The internal space of the building. The following values are recommended for retail stores: 50 – a retail store of 2×2 size, 100 – a retail store of 3×3 size, 200 – a retail store of 4×4 size",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 999
+          },
+          "frame_delay": {
+            "description": "Normally it is set to 1 which plays each frame in the animation at the normal speed. When it is set to 2 or higher, the playing speed of the animated frames for this building will be 2 times slower or several times slower.",
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 99
+          },
+          "can_be_acquired": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id", "name", "type"
+        ]
+      }
+    }
+  }
+}
+}
+}
