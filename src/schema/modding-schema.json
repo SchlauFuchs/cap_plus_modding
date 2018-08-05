@@ -1,11 +1,17 @@
 {
   "$schema": "http://json-schema.org/schema#",
-  "id": "http://hackemesser.de/schemas/capitalism_plus/modding-schema.json",
+  "id": "https://raw.githubusercontent.com/SchlauFuchs/cap_plus_modding/master/src/schema/modding-schema.json",
   "type": "object",
   "properties": {
-    "title":{"type":"string"},
-    "description":{"type":"string"},
-    "author":{"type":"string"},
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "author": {
+      "type": "string"
+    },
     "dependencies": {
       "game": {
         "type": "object",
@@ -85,7 +91,10 @@
           "recipe": {
             "type": "object",
             "properties": {
-              "source":{"type":"string", "enum":["crops","farming", "mining", "drilling", "logging", "manufacturing"] },
+              "source_building_type": {
+                "type": "string",
+                "enum": ["farming", "mining", "drilling", "logging", "manufacturing"]
+              },
               "contents": {
                 "type": "array",
                 "items": {
@@ -272,6 +281,4 @@
       }
     }
   }
-}
-}
 }
